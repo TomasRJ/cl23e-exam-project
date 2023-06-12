@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:lts
+    restart: always
+    environment:
+      MYSQL_DATABASE: zay_dev
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db:/var/lib/mysql
+
+  backend:
+    image: exam-project-backend
+    restart: on-failure
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      DB_HOSTNAME: db
+      DB_USERNAME: root
+      DB_PASSWORD: root
+      DB_DATABASE: zay_dev
+    depends_on:
+      - db
+    command: sh -c "npm run db:migrate && npm run db:seed && npm run dev"
+
+  frontend:
+    image: exam-project-frontend
+    restart: always
+    ports:
+      - 5555:8000
+    depends_on:
+      - backend
+
+volumes:
+  db:
