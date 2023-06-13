@@ -21,34 +21,34 @@ Download projektet lokal med enten `git clone https://github.com/TomasRJ/cl23e-e
 
 ### Step 2
 Åben en terminal til den mappe hvor du har placeret projektet.
-
-> `cd sted\hvor\du\har\placeret\projektet`
-
+```sh
+cd sted\hvor\du\har\placeret\projektet
+```
 ### Step 3
 Siden dette projekt bruger Docker Swarm så skal man have de aktiveret før at projektet virker. Det gør man ved at køre følgende kommando: 
-
-> `docker swarm init`
-
+```sh
+docker swarm init
+```
 ### Step 4
 Lav en registry
-
-> `docker service create --name registry --publish published=5000,target=5000 registry:2` 
-
+```sh
+docker service create --name registry --publish published=5000,target=5000 registry:2
+```
 ### Step 5
 Opret de brugerdefininerede docker images ud fra de Dockerfiles jeg har skrevet:
-
-> `docker compose -f .\prod-swarm-compose.yml build`
-
+```sh
+docker compose -f .\prod-swarm-compose.yml build
+```
 ### Step 6
 Push de images vi lige har lavet til vores lokale registry:
-
-> `docker compose -f .\prod-swarm-compose.yml push`
-
+```sh
+docker compose -f .\prod-swarm-compose.yml push
+```
 ### Step 7
 Kør så følgende kommando for at webshoppen op og køre på din egen maskine:
-
-> `docker stack deploy --compose-file .\prod-swarm-compose.yml examproject`
-
+```sh
+docker stack deploy --compose-file .\prod-swarm-compose.yml examproject
+```
 Denne kommando sætter automatisk op de 2 brugerdefinerede container til frontend og backend, samt en MariaDB database.
 
 **Nu skulle webshoppen køre på din egen maksine.**
@@ -56,13 +56,10 @@ Denne kommando sætter automatisk op de 2 brugerdefinerede container til fronten
 
 ## Afinstallering
 Kør:
-
-> `docker stack rm examproject`
-
-> `docker service rm registry`
-
-> `docker volume rm examproject_db`
-
-> `docker image prune`
-
-> `docker swarm leave --force`
+```sh
+docker stack rm examproject
+docker service rm registry
+docker volume rm examproject_db
+docker image prune
+docker swarm leave --force
+```
