@@ -11,7 +11,7 @@ services:
       - db:/var/lib/mysql
 
   backend:
-    image: exam-project-backend
+    image: 127.0.0.1:5000/exam-project-backend
     build:
       context: .
       dockerfile: ./backend.Dockerfile
@@ -29,7 +29,7 @@ services:
     command: sh -c "npm run db:migrate && npm run db:seed && npm start"
 
   frontend:
-    image: exam-project-frontend
+    image: 127.0.0.1:5000/exam-project-frontend
     build:
       context: .
       dockerfile: ./frontend.Dockerfile
