@@ -12,6 +12,9 @@ services:
 
   backend:
     image: exam-project-backend
+    build:
+      context: .
+      dockerfile: ./backend.Dockerfile
     restart: on-failure
     ports:
       - 3000:3000
@@ -23,10 +26,13 @@ services:
       DB_DATABASE: zay_dev
     depends_on:
       - db
-    command: sh -c "npm run db:migrate && npm run db:seed && npm run dev"
+    command: sh -c "npm run db:migrate && npm run db:seed && npm start"
 
   frontend:
     image: exam-project-frontend
+    build:
+      context: .
+      dockerfile: ./frontend.Dockerfile
     restart: always
     ports:
       - 5555:8000
