@@ -3,7 +3,7 @@ FROM node:lts-alpine
 WORKDIR /srv/app
 COPY frontend ./frontend
 WORKDIR /srv/app/frontend
-RUN npm i
+RUN npm ci
 EXPOSE 8000
 RUN npm run build
 RUN npm install -g serve
